@@ -1,53 +1,124 @@
-
-
-
-#wrap {
-    /* background-color: lightblue; */
+:root {
+    --button-hover-bg-color: rgb(123, 123, 123);
+    --button-number-bg-color: rgb(218, 218, 218);
+    --button-operator-bg-color: rgb(100, 94, 150);
+    --button-operator-highlight-color: rgb(128, 64, 57);
+    --button-other-bg-color: rgb(33, 29, 71);
+    --button-shadow-color: rgb(139, 135, 135);
+    --button-primary-font-color: rgb(218, 218, 218);
+    --button-number-font-color: rgb(48, 48, 48);
+    --display-surround-color: rgb(204, 202, 198);
+    --display-bg-color: rgb(172, 170, 166);
+    --display-font-color: rgb(65, 65, 65);
+    --calcBody-color: rgb(57, 52, 107);
+    --body-color: rgb(43, 34, 10);
 }
 
-.grid {
-    display: grid;
-    grid-template-columns: repeat(4,1fr);;
-    grid-gap: 10px;
-    align-items: start;
-    justify-items: center;
-    margin: auto;
-    width: 400px;
-    background-color: aqua;
-    padding-bottom: 8px;
-}
-
-.display {
-    display: flex;
-    justify-content: right;
-    align-items: end;
-    background: darkgray;
-    color: rgb(69, 69, 69);
+body {
+    background-color: var(--body-color);
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 50px;
-    width: 380px;
-    height: 75px;
-    text-align: right;
-    vertical-align: center;
 }
 
-.grid div {
-    border: 1px solid rgba(0,0,0,0.3);
-    box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.3);
-    max-width: 100%;
+.wrap {
+    display: flex;
+    justify-content: center;
 }
 
-.grid button {
-    color: white;
-    background-color: darkblue;
-    border-color: black;
-    width: 75px;
-    height: 50px;
-    font-size: 24px;
-}    
+    .flex-container {
+        width: 400px;
+        height: 640px;
+        margin: 20px 0px;
+        padding: 20px;
+        background-color: var(--calcBody-color);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 
-.grid button.highlighted {
-    background-color: red;
+    .displays-container {
+        width: 100%;
+        height: 150px;
+        background-color: var(--display-surround-color);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+
+        .display {
+            width: 90%;
+            height: 35px;
+            padding: 8px;
+            color: var(--display-font-color);
+            background-color: var(--display-bg-color);
+            text-align: end;
+            align-content: center;
+            font-size: 30px;
+        }
+
+    .buttons-container {
+        box-sizing: border-box;
+        width: 100%;
+        height: 500px;
+        padding: 32px 8px 8px 8px;
+        background-color: var(--calcBody-color);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+        .button-row {
+            height: 100%;
+            background-color: var(--calcBody-color);
+            display: flex;
+            align-content: center;
+            justify-content: center;
+        }
+
+            button {
+                width: 25%;
+                margin: 6px 2px;
+                
+                flex: 1 1 75px;
+                font-size: 24px;
+                outline: none;
+                border: none;
+                border-radius: 20px;
+                
+                cursor: pointer;
+                box-shadow: 0 9px var(--button-shadow-color);
+            }
+
+
+
+
+button.clear, .special {
+    color: var(--button-primary-font-color);
+    background-color: var(--button-other-bg-color);
+}
+
+button.operator, .equals {
+    color: var(--button-primary-font-color);
+    background-color: var(--button-operator-bg-color);
+}
+
+button.number {
+    color: var(--button-number-font-color);
+    background-color: var(--button-number-bg-color);
+}
+
+button:hover {
+    background-color: var(--button-hover-bg-color)
+}
+
+button:active {
+    background-color: darkgray;
+    transform: translateY(4px);
+    box-shadow: 0 5px var(--button-shadow-color);
+  }
+
+button.highlighted {
+    background-color: var(--button-operator-highlight-color);
 }
 
 .grid div:nth-child(1) {
@@ -57,5 +128,3 @@
 .grid div:nth-child(2) {
     grid-column: span 4;
 }
-
-  

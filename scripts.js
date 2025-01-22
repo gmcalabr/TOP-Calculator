@@ -18,24 +18,26 @@ const upperDisplay = document.getElementById("upperDisplay");
 const lowerDisplay = document.getElementById("lowerDisplay");
 const display = document.querySelectorAll('display');
 
-// subfunctions________________________________________________
+
+
+// NEW SECTION$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+
 
 function clearOperators() {
     inputs.operator = undefined;
-    const operatorButtons = document.getElementsByClassName('operator');
-    for (let operatorButton of operatorButtons) {
-        operatorButton.classList.toggle('highlighted', false);
-    }
+    const operatorButtons = document.querySelectorAll('.operator');
+    operatorButtons.forEach(button => {
+        button.classList.toggle('highlighted', false);
+    });
 }
 
 function highlightOperator(buttonPress) {
     inputs.operator = buttonPress.text;
-    const operatorButtons = document.getElementsByClassName('operator');
-    for (let operatorButton of operatorButtons) {    
-        if (operatorButton.innerHTML == buttonPress.text) {
-            operatorButton.classList.toggle('highlighted', true);
-        }
-    }
+    const operatorButtons = document.querySelectorAll('.operator');
+    operatorButtons.forEach(button => {    
+        button.classList.toggle('highlighted', button.innerHTML == buttonPress.text);
+    });
 }
 
 function doMath(inputs) {
@@ -53,7 +55,14 @@ function doMath(inputs) {
     } else if (inputs.operator == "+") {
         answer = add(inputs.inputA, inputs.inputB)
     };
-    return answer;
+
+    let answerLength = answer.toString().length;
+    let decimals = 10;
+    if (answerLength > 12) {
+        decimals = decimals - (answerLength - 15);
+    }
+
+    return roundToX(answer, decimals);
 }
 
 function pushlowerDisplay(str) {
@@ -75,13 +84,52 @@ function clearupperDisplay(buttonPress) {
 }
 
 function generateRandom() {
-    let randomNumber = Math.round(Math.random() * 100000) / 100000;
+    let randomNumber = roundToX(Math.random(), 10);
     return randomNumber
 }
 
-// subfunctions________________________________________________
+function roundToX(num, decimals) {
+    return Math.round(num * (10 ** decimals)) / (10 ** decimals);
+}
 
-// button press functions______________________________________
+
+// NEW SECTION$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+
+
+
+function clearButton() {
+    clearlowerDisplay();
+    clearupperDisplay();
+
+    for (let key in inputs) {
+        inputs[key] = undefined;
+    }
+
+    newNum = false;
+}
+
+function equals() {
+
+    let readout = lowerDisplay.innerHTML;
+    inputs.inputB = readout;
+    console.table(inputs);
+
+    if (inputs.inputA && inputs.inputB && inputs.operator && newNum == false) {
+        newNum = true;
+    
+        let expressionPrintout = `${inputs.inputA} ${inputs.operator} ${inputs.inputB}`
+        upperDisplay.innerHTML = expressionPrintout;
+        let answer = doMath(inputs);
+    
+        pushlowerDisplay(answer);
+        inputs.inputA = answer;
+        inputs.inputB = undefined;
+        inputs.operator = undefined;
+    
+        clearOperators();
+    }
+}
 
 function operatorButton(buttonPress) {
 
@@ -120,55 +168,23 @@ function specialButton(string) {
     }
 }
 
-function equals() {
 
-    console.table(inputs);
-    //if there is no expression or inputB, then skip everything
 
-    let readout = lowerDisplay.innerHTML;
-    inputs.inputB = readout;
+// NEW SECTION$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
-    if (inputs.inputA && inputs.inputB && inputs.operator) {
-        newNum = true;
-    
-        let expressionPrintout = `${inputs.inputA} ${inputs.operator} ${inputs.inputB}`
-        upperDisplay.innerHTML = expressionPrintout;
-        let answer = doMath(inputs);
-    
-        pushlowerDisplay(answer);
-        inputs.inputA = answer;
-        inputs.inputB = undefined;
-        inputs.operator = undefined;
-    
-        clearOperators();
-    }
 
-}
-
-function clearButton() {
-    clearlowerDisplay();
-    clearupperDisplay();
-
-    for (let key in inputs) {
-        inputs[key] = undefined;
-    }
-
-    newNum = false;
-}
-
-// button press functions________________________________________
 
 function determineAction(buttonPress) {
         if (buttonPress.type == "number") {
             pushlowerDisplay(buttonPress.text);
-        } else if (buttonPress.type == "special") {
-            specialButton(buttonPress.text);
-        } else if (buttonPress.type == "operator") {
-            operatorButton(buttonPress);
         } else if (buttonPress.type == "clear") {
             clearButton();
         } else if (buttonPress.type == "equals") {
             equals();
+        } else if (buttonPress.type == "operator") {
+            operatorButton(buttonPress);
+        } else if (buttonPress.type == "special") {
+            specialButton(buttonPress.text);
         }
 }
 
@@ -179,5 +195,5 @@ buttons.forEach(button => {
             type: this.className,
         }        
         determineAction(buttonPress);
-    })
+    });
 })
