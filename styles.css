@@ -45,13 +45,15 @@ body {
         align-items: center;
     }
 
-        .display {
+        .display-row {
             width: 90%;
             height: 35px;
             padding: 8px;
             color: var(--display-font-color);
             background-color: var(--display-bg-color);
             text-align: end;
+            overflow: hidden;
+            text-overflow: ellipsis;
             align-content: center;
             font-size: 30px;
         }
@@ -111,9 +113,10 @@ button:hover {
     background-color: var(--button-hover-bg-color)
 }
 
-button:active {
+button:active,
+button.active {
+    transform: scale(0.95) translateY(4px);
     background-color: darkgray;
-    transform: translateY(4px);
     box-shadow: 0 5px var(--button-shadow-color);
   }
 

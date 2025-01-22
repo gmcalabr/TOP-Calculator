@@ -113,7 +113,6 @@ function equals() {
 
     let readout = lowerDisplay.innerHTML;
     inputs.inputB = readout;
-    console.table(inputs);
 
     if (inputs.inputA && inputs.inputB && inputs.operator && newNum == false) {
         newNum = true;
@@ -188,6 +187,31 @@ function determineAction(buttonPress) {
         }
 }
 
+function keyConverter(key) {
+    const conversionMap = {
+        "Backspace": "BS",
+        "Escape": "AC",
+        "Enter": "=",
+        "*": "x",
+    };
+    return conversionMap[key] || key;
+}
+
+function operateKey(key) {
+    const relevantKeys = ["Backspace", "Escape", "Enter", "*"];
+    if (relevantKeys.includes(key)) {
+        key = keyConverter(key);
+    }
+
+    buttons.forEach(button => {
+        if (button.innerHTML == key) {
+            button.click();
+            button.classList.add('active');
+            setTimeout(() => button.classList.remove('active'), 150);
+        }
+    })
+}
+
 buttons.forEach(button => {
     button.addEventListener("click", function() {
         buttonPress = {
@@ -197,3 +221,8 @@ buttons.forEach(button => {
         determineAction(buttonPress);
     });
 })
+
+document.addEventListener('keydown', (event) => {
+    let key = event.key;
+    operateKey(key);
+});
