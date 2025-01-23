@@ -26,7 +26,7 @@ body {
 
     .flex-container {
         width: 400px;
-        height: 640px;
+        height: 750px;
         margin: 20px 0px;
         padding: 20px;
         background-color: var(--calcBody-color);
@@ -38,24 +38,34 @@ body {
     .displays-container {
         width: 100%;
         height: 150px;
-        background-color: var(--display-surround-color);
+        background-color: var(--button-number-bg-color);
         display: flex;
         flex-direction: column;
         justify-content: space-evenly;
         align-items: center;
     }
 
-        .display-row {
-            width: 90%;
-            height: 35px;
+        .displays-container > div {
+            min-width: 90%;
+            height: 40px;
             padding: 8px;
             color: var(--display-font-color);
-            background-color: var(--display-bg-color);
+            background-color: var(--display-surround-color);
             text-align: end;
             overflow: hidden;
             text-overflow: ellipsis;
             align-content: center;
             font-size: 30px;
+        }
+
+        .solar-row {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-row {
+            display: flex;
+            flex-direction: row;
         }
 
     .buttons-container {
@@ -93,6 +103,35 @@ body {
 
 
 
+#solar-panel {
+    width: 40%;
+    height: 35px;
+    justify-self: center;
+    align-self: center;
+    background-color: var(--button-other-bg-color);
+}
+
+#name-logo,
+#model-logo {
+    width: 100%;
+    height: 20px;
+    color: var(--button-other-bg-color);
+    text-align: start;
+    justify-content: center;
+    align-content: center;
+    font-size: 8px;
+}
+
+#model-logo {
+    font-size: 20px;
+    text-align: end;
+}
+
+#upperDisplay,
+#lowerDisplay {
+    width: 100%;
+    background-color: var(--display-bg-color)
+}
 
 button.clear, .special {
     color: var(--button-primary-font-color);
@@ -122,12 +161,4 @@ button.active {
 
 button.highlighted {
     background-color: var(--button-operator-highlight-color);
-}
-
-.grid div:nth-child(1) {
-    grid-column: span 4;
-}
-  
-.grid div:nth-child(2) {
-    grid-column: span 4;
 }
