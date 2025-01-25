@@ -1,9 +1,4 @@
-
-const add = (a, b) => (Number(a) + Number(b));
-const subtract = (a, b) => (a - b);
-const multiply = (a, b) => (a * b);
-const divide = (a, b) => (a / b);
-const power = (a, b) => (a ** b);
+// Declaration Section !!! Declaration Section !!! Declaration Section !!! Declaration Section !!! 
 
 let inputs = {
     inputA: undefined,
@@ -11,18 +6,31 @@ let inputs = {
     operator: undefined,
 };
 
-let newNum = false;
-
 const buttons = document.querySelectorAll('button');
 const upperDisplay = document.getElementById("upperDisplay");
 const lowerDisplay = document.getElementById("lowerDisplay");
 const display = document.querySelectorAll('display');
+const displayLength = 13;
 
+const add = (a, b) => (Number(a) + Number(b));
+const subtract = (a, b) => (a - b);
+const multiply = (a, b) => (a * b);
+const divide = (a, b) => (a / b);
+const power = (a, b) => (a ** b);
 
+// Declaration Section !!! Declaration Section !!! Declaration Section !!! Declaration Section !!! 
+// Display Length Functions Section !!!!!!!!!!!!!! Display Length Functions Section !!!!!!!!!!!!!!
 
-// NEW SECTION$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+function roundToX(num, decimals) {
+    return Math.round(num * (10 ** decimals)) / (10 ** decimals);
+}
 
+function scientificNotation(number, decimals) {
+    return number.toExponential(decimals);
+}
 
+// Display Length Functions Section !!!!!!!!!!!!!! Display Length Functions Section !!!!!!!!!!!!!!
+// SubFunctions Section !!! SubFunctions Section !!! SubFunctions Section !!! SubFunctions Section ! 
 
 function clearOperators() {
     inputs.operator = undefined;
@@ -88,15 +96,8 @@ function generateRandom() {
     return randomNumber
 }
 
-function roundToX(num, decimals) {
-    return Math.round(num * (10 ** decimals)) / (10 ** decimals);
-}
-
-
-// NEW SECTION$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-
-
-
+// SubFunctions Section !!! SubFunctions Section !!! SubFunctions Section !!! SubFunctions Section !
+// Button Functions Section !!!!!! Button Functions Section !!!!!! Button Functions Section !!!!!!
 
 function clearButton() {
     clearlowerDisplay();
@@ -167,11 +168,8 @@ function specialButton(string) {
     }
 }
 
-
-
-// NEW SECTION$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-
-
+// Button Functions Section !!!!!! Button Functions Section !!!!!! Button Functions Section !!!!!!
+// Main functions !!! Main functions !!! Main functions !!! Main functions !!! Main functions !!! 
 
 function determineAction(buttonPress) {
         if (buttonPress.type == "number") {
@@ -226,3 +224,5 @@ document.addEventListener('keydown', (event) => {
     let key = event.key;
     operateKey(key);
 });
+
+// Main functions !!! Main functions !!! Main functions !!! Main functions !!! Main functions !!! 

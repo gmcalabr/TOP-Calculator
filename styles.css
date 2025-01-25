@@ -37,15 +37,17 @@ body {
 
     .displays-container {
         width: 100%;
-        height: 150px;
-        background-color: var(--button-number-bg-color);
+        height: 250px;
+        padding-bottom: 24px;
+        background-color: var(--display-surround-color);
         display: flex;
         flex-direction: column;
         justify-content: space-evenly;
         align-items: center;
+        font-size: 0px;
     }
 
-        .displays-container > div {
+        /* .displays-container > div {
             min-width: 90%;
             height: 40px;
             padding: 8px;
@@ -56,17 +58,77 @@ body {
             text-overflow: ellipsis;
             align-content: center;
             font-size: 30px;
-        }
+        } */
 
-        .solar-row {
-            display: flex;
-            flex-direction: column;
-        }
+            .solar-row {
+                min-width: 90%;
+                height: 40px;
+                padding: 8px;
+                background-color: var(--display-surround-color);
+                align-content: center;
+            }
 
-        .logo-row {
-            display: flex;
-            flex-direction: row;
-        }
+                #solar-panel {
+                    width: 40%;
+                    height: 35px;
+                    justify-self: center;
+                    align-self: center;
+                    background-color: var(--button-other-bg-color);
+                }
+
+            .logo-row,
+            .display-row {
+                min-width: 90%;
+                height: 40px;
+                padding: 8px;
+                color: var(--display-font-color);
+                background-color: var(--display-surround-color);
+                text-align: end;
+                align-content: center;
+                font-size: 30px;
+            }
+
+            .logo-row {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+            }
+
+                #name-logo,
+                #model-logo {
+                    width: 100%;
+                    height: 20px;
+                    color: var(--button-other-bg-color);
+                    text-align: start;
+                    justify-content: center;
+                    align-content: center;
+                    font-size: 8px;
+                }
+
+                #model-logo {
+                    font-size: 20px;
+                    text-align: end;
+                }
+
+            .display-row {
+                margin: 0px;
+                padding: 0px;
+                font-size: 48px;
+                text-overflow: ellipsis;
+                align-content: center;
+                position: relative;
+            }
+
+                #upperDisplay,
+                #lowerDisplay {
+                    width: 100%;
+                    max-width: 360px;
+                    min-height: 50px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    direction: rtl;
+                    background-color: var(--display-bg-color)
+                }
 
     .buttons-container {
         box-sizing: border-box;
@@ -90,75 +152,42 @@ body {
             button {
                 width: 25%;
                 margin: 6px 2px;
-                
                 flex: 1 1 75px;
                 font-size: 24px;
                 outline: none;
                 border: none;
                 border-radius: 20px;
-                
                 cursor: pointer;
                 box-shadow: 0 9px var(--button-shadow-color);
             }
 
 
+                button.clear, .special {
+                    color: var(--button-primary-font-color);
+                    background-color: var(--button-other-bg-color);
+                }
 
-#solar-panel {
-    width: 40%;
-    height: 35px;
-    justify-self: center;
-    align-self: center;
-    background-color: var(--button-other-bg-color);
-}
+                button.operator, .equals {
+                    color: var(--button-primary-font-color);
+                    background-color: var(--button-operator-bg-color);
+                }
 
-#name-logo,
-#model-logo {
-    width: 100%;
-    height: 20px;
-    color: var(--button-other-bg-color);
-    text-align: start;
-    justify-content: center;
-    align-content: center;
-    font-size: 8px;
-}
+                button.number {
+                    color: var(--button-number-font-color);
+                    background-color: var(--button-number-bg-color);
+                }
 
-#model-logo {
-    font-size: 20px;
-    text-align: end;
-}
+                button:hover {
+                    background-color: var(--button-hover-bg-color)
+                }
 
-#upperDisplay,
-#lowerDisplay {
-    width: 100%;
-    background-color: var(--display-bg-color)
-}
+                button:active,
+                button.active {
+                    transform: scale(0.95) translateY(4px);
+                    background-color: darkgray;
+                    box-shadow: 0 5px var(--button-shadow-color);
+                }
 
-button.clear, .special {
-    color: var(--button-primary-font-color);
-    background-color: var(--button-other-bg-color);
-}
-
-button.operator, .equals {
-    color: var(--button-primary-font-color);
-    background-color: var(--button-operator-bg-color);
-}
-
-button.number {
-    color: var(--button-number-font-color);
-    background-color: var(--button-number-bg-color);
-}
-
-button:hover {
-    background-color: var(--button-hover-bg-color)
-}
-
-button:active,
-button.active {
-    transform: scale(0.95) translateY(4px);
-    background-color: darkgray;
-    box-shadow: 0 5px var(--button-shadow-color);
-  }
-
-button.highlighted {
-    background-color: var(--button-operator-highlight-color);
-}
+                button.highlighted {
+                    background-color: var(--button-operator-highlight-color);
+                }
