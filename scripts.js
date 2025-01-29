@@ -6,12 +6,17 @@ let inputs = {
     operator: undefined,
 };
 
-const buttons = document.querySelectorAll('button');
 const upperDisplay = document.getElementById("upperDisplay");
 const lowerDisplay = document.getElementById("lowerDisplay");
 const display = document.querySelectorAll('display');
-const upperDisplayLength = 26;
-const lowerDisplayLength = 17;
+const upperDisplayLengthMax = 26;
+const upperDisplayLengthMin = 14;
+const lowerDisplayLengthMax = 17;
+const lowerDisplayLengthMin = 9;
+let upperDisplayLength = upperDisplayLengthMax;
+let lowerDisplayLength = lowerDisplayLengthMax;
+
+const buttons = document.querySelectorAll('button');
 let newNum = false;
 
 const add = (a, b) => (Number(a) + Number(b));
@@ -23,6 +28,11 @@ const power = (a, b) => (a ** b);
 // Declaration Section !!! Declaration Section !!! Declaration Section !!! Declaration Section !!! 
 // Display Length Functions Section !!!!!!!!!!!!!! Display Length Functions Section !!!!!!!!!!!!!!
 
+function resizeDisplay (width) {
+    upperDisplay.style.maxWidth = `${width}px`;
+    lowerDisplay.style.maxWidth = `${width}px`;
+}
+
 function roundToX(number, decimals) {
     number = parseFloat(number);
     return Math.round(number * (10 ** decimals)) / (10 ** decimals)
@@ -30,7 +40,11 @@ function roundToX(number, decimals) {
 
 function scientificNotation(number, decimals) {
     number = parseFloat(number);
-    return number.toExponential(decimals);
+    if (decimals >= 100 || decimals <=0 ) {
+        return number;
+    } else {
+        return number.toExponential(decimals);
+    }
 }
 
 function truncate(number, truncatedMaxLength = lowerDisplayLength) {
@@ -43,7 +57,6 @@ function truncate(number, truncatedMaxLength = lowerDisplayLength) {
     } else if (number.toString().length > truncatedMaxLength && number < 0.00001) {
         return scientificNotation(number, truncatedMaxLength - 5);
     } else {
-        console.log("ERR")
         return number;
     }
 }
@@ -285,4 +298,28 @@ document.addEventListener('keydown', (event) => {
     operateKey(key);
 });
 
+const container = document.getElementById('display-row');
+const resizeObserver = new ResizeObserver(entries => {
+    for (let entry of entries) {
+        const { width } = entry.contentRect;
+        if (width >= 360) {
+            upperDisplayLength = upperDisplayLengthMax;
+            lowerDisplayLength = lowerDisplayLengthMax;
+            resizeDisplay(width);
+        } else if (width < 360 && width > 193.5) {
+            let ratio = (width - 193.5) / (360 - 193.5);
+            upperDisplayLength = Math.round(upperDisplayLengthMin + ratio * (upperDisplayLengthMax - upperDisplayLengthMin));
+            lowerDisplayLength = Math.round(lowerDisplayLengthMin + ratio * (lowerDisplayLengthMax - lowerDisplayLengthMin));
+            resizeDisplay(width);
+        } else {
+            upperDisplayLength = upperDisplayLengthMin;
+            lowerDisplayLength = lowerDisplayLengthMin;
+            resizeDisplay(width);
+        }
+    }
+});
+  
+resizeObserver.observe(container);
+
 // Main functions !!! Main functions !!! Main functions !!! Main functions !!! Main functions !!! 
+
