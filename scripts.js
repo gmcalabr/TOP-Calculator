@@ -203,7 +203,7 @@ function operatorButton(buttonPress) {
 
     let readout = lowerDisplay.innerHTML;
 
-    if (inputs.operator) {
+    if (inputs.operator && newNum) {
         clearOperators();
         highlightOperator(buttonPress);
     } else if (readout && !inputs.operator) {
@@ -211,7 +211,11 @@ function operatorButton(buttonPress) {
         highlightOperator(buttonPress);
         inputs.inputA = readout;
         newNum = true
+    } else if (!newNum && readout && inputs.operator) {
+        equals();
+        operatorButton(buttonPress);
     }
+
 }
 
 function specialButton(string) {
